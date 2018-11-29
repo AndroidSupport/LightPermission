@@ -1,0 +1,42 @@
+apply plugin: 'maven'
+
+def isReleaseBuild() {
+    return !VERSION_NAME.toUpperCase().contains("SNAPSHOT")
+}
+
+def getRepositoryUrl() {
+    return isReleaseBuild() ? REPOSITORY_RELEASE : REPOSITORY_SNAPSHOTS
+}
+
+def getLocalProperties() {
+    Map<String, String> config = new HashMap<>()
+    Properties properties = new Properties()
+    InputStream inputStream = rootProject.file('local.properties').newDataInputStream()
+    properties.load(inputStream)
+    config.put("username", properties.getProperty("SONATYPE_USERNAME"))
+    config.put("password", properties.getProperty("SONATYPE_PASSWORD"))
+    return config
+}
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                pom.groupId = GROUP
+                pom.artifactId = ARTIFACT_ID
+                pom.version = VERSION_NAME
+                repository(url: getRepositoryUrl()) {
+                    Map<String, String> config = getLocalProperties();
+                    authentication(userName: config.username, password: config.password)
+                }
+            }
+        }
+    }
+    if (isReleaseBuild()) {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+            options.addStringOption('encoding', 'UTF-8')
+            options.addStringOption('charSet', 'UTF-8')
+        }
+    }
+}
