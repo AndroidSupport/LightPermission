@@ -2,6 +2,7 @@ package com.uniquext.android.lightpermission.helper;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.annotation.Size;
 import android.support.v4.app.ActivityCompat;
 
 import com.uniquext.android.lightpermission.PermissionCallback;
@@ -31,12 +32,12 @@ import static com.uniquext.android.lightpermission.LightPermission.hasPermission
  */
 public class ActivityPermissionHelper extends PermissionHelper<Activity> {
 
-    ActivityPermissionHelper(Activity host) {
+    ActivityPermissionHelper(@NonNull Activity host) {
         super(host);
     }
 
     @Override
-    public void requestPermissions(int requestCode, @NonNull String... permissions) {
+    public void requestPermissions(int requestCode, @NonNull @Size(min = 1) String... permissions) {
         ActivityCompat.requestPermissions(getHost(), permissions, requestCode);
     }
 

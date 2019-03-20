@@ -2,6 +2,7 @@ package com.uniquext.android.lightpermission.helper;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.annotation.Size;
 import android.support.v4.app.Fragment;
 
 import com.uniquext.android.lightpermission.PermissionCallback;
@@ -83,7 +84,7 @@ public abstract class PermissionHelper<T> {
      * @param requestCode 请求码
      * @param permissions 权限集合
      */
-    public abstract void requestPermissions(int requestCode, @NonNull String... permissions);
+    public abstract void requestPermissions(int requestCode, @NonNull @Size(min = 1) String... permissions);
 
     /**
      * 请求结果处理

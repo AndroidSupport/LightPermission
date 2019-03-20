@@ -55,7 +55,7 @@ public final class LightPermission {
      * @param permissions 权限集合
      * @return 是否拥有所有权限
      */
-    public static boolean hasPermissions(Context context, String... permissions) {
+    public static boolean hasPermissions(@NonNull Context context, @NonNull @Size(min = 1) String... permissions) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         } else if (context.getApplicationInfo().targetSdkVersion < Build.VERSION_CODES.M) {
@@ -139,7 +139,7 @@ public final class LightPermission {
      * @param requestCode requestCode
      * @param permissions permissions
      */
-    private static void requestPermissions(PermissionHelper helper, int requestCode, String... permissions) {
+    private static void requestPermissions(@NonNull PermissionHelper helper, int requestCode, @NonNull @Size(min = 1) String... permissions) {
         helper.requestPermissions(requestCode, permissions);
     }
 

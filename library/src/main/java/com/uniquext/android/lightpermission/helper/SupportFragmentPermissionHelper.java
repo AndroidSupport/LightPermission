@@ -1,6 +1,7 @@
 package com.uniquext.android.lightpermission.helper;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Size;
 import android.support.v4.app.Fragment;
 
 import com.uniquext.android.lightpermission.PermissionCallback;
@@ -30,12 +31,12 @@ import static com.uniquext.android.lightpermission.LightPermission.hasPermission
  */
 public class SupportFragmentPermissionHelper extends PermissionHelper<Fragment> {
 
-    SupportFragmentPermissionHelper(Fragment host) {
+    SupportFragmentPermissionHelper(@NonNull Fragment host) {
         super(host);
     }
 
     @Override
-    public void requestPermissions(int requestCode, @NonNull String... permissions) {
+    public void requestPermissions(int requestCode, @NonNull @Size(min = 1) String... permissions) {
         getHost().requestPermissions(permissions, requestCode);
     }
 

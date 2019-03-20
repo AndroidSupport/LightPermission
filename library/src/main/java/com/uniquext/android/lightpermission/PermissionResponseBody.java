@@ -1,5 +1,8 @@
 package com.uniquext.android.lightpermission;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Size;
+
 /**
  * 　 　　   へ　　　 　／|
  * 　　    /＼7　　　 ∠＿/
@@ -35,7 +38,7 @@ public class PermissionResponseBody {
      */
     private String[] mPermissions;
 
-    PermissionResponseBody(boolean granted, int requestCode, String[] permissions) {
+    PermissionResponseBody(boolean granted, int requestCode, @NonNull String[] permissions) {
         this.mGranted = granted;
         this.mRequestCode = requestCode;
         this.mPermissions = permissions;
