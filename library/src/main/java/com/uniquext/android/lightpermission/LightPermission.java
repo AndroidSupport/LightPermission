@@ -4,13 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Size;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
 
 import com.uniquext.android.lightpermission.helper.PermissionHelper;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.Size;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.PermissionChecker;
+import androidx.fragment.app.Fragment;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -126,6 +128,7 @@ public final class LightPermission {
      * @param requestCode 请求码
      * @param permissions 权限集合
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public static void requestPermissions(@NonNull android.app.Fragment fragment,
                                           int requestCode,
                                           @NonNull @Size(min = 1) String... permissions) {

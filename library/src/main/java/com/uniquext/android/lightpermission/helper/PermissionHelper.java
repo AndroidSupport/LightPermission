@@ -1,12 +1,15 @@
 package com.uniquext.android.lightpermission.helper;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.annotation.Size;
-import android.support.v4.app.Fragment;
+import android.os.Build;
 
 import com.uniquext.android.lightpermission.PermissionCallback;
 import com.uniquext.android.lightpermission.PermissionResponseBody;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.Size;
+import androidx.fragment.app.Fragment;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -68,6 +71,7 @@ public abstract class PermissionHelper<T> {
      * @param fragment fragment
      * @return PermissionHelper
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @NonNull
     public static PermissionHelper<? extends android.app.Fragment> newInstance(@NonNull android.app.Fragment fragment) {
         return new FragmentPermissionHelper(fragment);

@@ -2,12 +2,13 @@ package com.uniquext.android.lightpermission.helper;
 
 import android.app.Fragment;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.Size;
 
 import com.uniquext.android.lightpermission.PermissionCallback;
 import com.uniquext.android.lightpermission.PermissionResponseBody;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.Size;
 
 import static com.uniquext.android.lightpermission.LightPermission.hasPermissions;
 
