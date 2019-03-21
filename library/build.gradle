@@ -1,14 +1,22 @@
 apply plugin: 'com.android.library'
 apply from: 'maven_push.gradle'
 
+static def getProductName() {
+    return "light_permission"
+}
+
+static def releaseTime() {
+    return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("GMT+08:00"))
+}
+
 android {
     compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -18,6 +26,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        libraryVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = "${getProductName()}_v${defaultConfig.versionName}_${releaseTime()}.aar"
+            }
         }
     }
 
