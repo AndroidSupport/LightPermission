@@ -41,7 +41,7 @@ LightPermission.requestPermissions(android.support.v4.app.Fragment fragment, int
 <br>实现`PermissionCallback`
 ```
 @Override
-public void onDoNotAskPermissions(int requestCode) {
+public void onPermissionNoLongerAsk(int requestCode, String permission) {
     Toast.makeText(this, "不再提醒", Toast.LENGTH_SHORT).show();
 }
 

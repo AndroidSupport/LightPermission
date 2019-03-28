@@ -50,7 +50,7 @@ public class ActivityPermissionHelper extends PermissionHelper<Activity> {
         } else {
             for (String permission : permissionResponseBody.getPermissions()) {
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(getHost(), permission)) {
-                    permissionCallback.onDoNotAskPermissions(permissionResponseBody.getRequestCode());
+                    permissionCallback.onPermissionNoLongerAsk(permissionResponseBody.getRequestCode(), permission);
                     return;
                 }
             }

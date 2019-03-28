@@ -49,7 +49,7 @@ public class SupportFragmentPermissionHelper extends PermissionHelper<Fragment> 
         } else {
             for (String permission : permissionResponseBody.getPermissions()) {
                 if (!getHost().shouldShowRequestPermissionRationale(permission)) {
-                    permissionCallback.onDoNotAskPermissions(permissionResponseBody.getRequestCode());
+                    permissionCallback.onPermissionNoLongerAsk(permissionResponseBody.getRequestCode(), permission);
                     return;
                 }
             }

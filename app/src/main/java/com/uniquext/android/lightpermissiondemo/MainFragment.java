@@ -64,7 +64,7 @@ public class MainFragment extends Fragment implements PermissionCallback {
     }
 
     @Override
-    public void onDoNotAskPermissions(int requestCode) {
+    public void onPermissionNoLongerAsk(int requestCode, String permission) {
         Toast.makeText(getContext(), "不再提醒", Toast.LENGTH_SHORT).show();
     }
 

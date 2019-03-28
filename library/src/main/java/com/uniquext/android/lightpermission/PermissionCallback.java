@@ -25,8 +25,9 @@ public interface PermissionCallback {
      * 不在请求权限
      *
      * @param requestCode 请求码
+     * @param permission  请求权限
      */
-    void onDoNotAskPermissions(int requestCode);
+    void onPermissionNoLongerAsk(int requestCode, String permission);
 
     /**
      * 无权限
