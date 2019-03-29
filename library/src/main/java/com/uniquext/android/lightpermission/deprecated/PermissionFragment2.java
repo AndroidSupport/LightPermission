@@ -5,12 +5,14 @@ import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.SparseArray;
 
 import com.uniquext.android.lightpermission.LightPermission;
 import com.uniquext.android.lightpermission.PermissionCallback;
 import com.uniquext.android.lightpermission.annotation.ResultType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,35 +58,12 @@ public class PermissionFragment2 extends Fragment {
         this.requestPermissions(permissions, requestCode);
     }
 
-    @SuppressLint("SwitchIntDef")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        StringBuilder deniedPermissionBuilder = new StringBuilder();
-        StringBuilder noAskPermissionBuilder = new StringBuilder();
-        for (int i = 0; i < permissions.length; ++i) {
-            switch (reprocessResult(permissions[i], grantResults[i])) {
-                case ResultType.DENIED:
-                    deniedPermissionBuilder.append(permissions[i]).append(",");
-                    break;
-                case ResultType.NO_REQUEST:
-                    noAskPermissionBuilder.append(permissions[i]).append(",");
-                    break;
-            }
-        }
-        if (TextUtils.isEmpty(deniedPermissionBuilder) && TextUtils.isEmpty(noAskPermissionBuilder)) {
-            permissionCallback.get(requestCode).onGranted();
-        } else {
-            if (!TextUtils.isEmpty(deniedPermissionBuilder)) {
-                deniedPermissionBuilder.deleteCharAt(deniedPermissionBuilder.lastIndexOf(","));
-                permissionCallback.get(requestCode).onDenied(deniedPermissionBuilder.toString().split(","));
-            }
-            if (!TextUtils.isEmpty(noAskPermissionBuilder)) {
-                noAskPermissionBuilder.deleteCharAt(noAskPermissionBuilder.lastIndexOf(","));
-                permissionCallback.get(requestCode).onNoRequest(noAskPermissionBuilder.toString().split(","));
-            }
-        }
+        List<String> deniedList = new ArrayList<>();
+        List<String> noRequestList = new ArrayList<>();
+        classifyResult(deniedList, noRequestList, permissions, grantResults);
+        dealCallback(requestCode, deniedList, noRequestList);
     }
 
     @ResultType
@@ -95,6 +74,34 @@ public class PermissionFragment2 extends Fragment {
             return ResultType.NO_REQUEST;
         } else {
             return ResultType.DENIED;
+        }
+    }
+
+    @SuppressLint("SwitchIntDef")
+    private void classifyResult(List<String> deniedList, List<String> noRequestList,
+                                @NonNull String[] permissions, @NonNull int[] grantResults) {
+        for (int i = 0; i < permissions.length; ++i) {
+            switch (reprocessResult(permissions[i], grantResults[i])) {
+                case ResultType.DENIED:
+                    deniedList.add(permissions[i]);
+                    break;
+                case ResultType.NO_REQUEST:
+                    noRequestList.add(permissions[i]);
+                    break;
+            }
+        }
+    }
+
+    private void dealCallback(int requestCode, List<String> deniedList, List<String> noRequestList) {
+        if (deniedList.isEmpty() && noRequestList.isEmpty()) {
+            permissionCallback.get(requestCode).onGranted();
+        } else {
+            if (!deniedList.isEmpty()) {
+                permissionCallback.get(requestCode).onDenied(deniedList.toArray(new String[0]));
+            }
+            if (!noRequestList.isEmpty()) {
+                permissionCallback.get(requestCode).onNoRequest(noRequestList.toArray(new String[0]));
+            }
         }
     }
 

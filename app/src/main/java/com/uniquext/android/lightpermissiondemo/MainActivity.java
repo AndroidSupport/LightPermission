@@ -48,11 +48,10 @@ public class MainActivity extends AppCompatActivity {
                 .with(this)
                 .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .result(new PermissionCallback() {
+
                     @Override
-                    public void onNoRequest(String[] permissions) {
-                        for (String permission : permissions) {
-                            Log.e("####", "onNoRequest " + permission);
-                        }
+                    public void onGranted() {
+                        Log.e("####", "onGranted");
                     }
 
                     @Override
@@ -63,9 +62,12 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onGranted() {
-                        Log.e("####", "onGranted");
+                    public void onNoRequest(String[] permissions) {
+                        for (String permission : permissions) {
+                            Log.e("####", "onNoRequest " + permission);
+                        }
                     }
+
                 });
     }
 
