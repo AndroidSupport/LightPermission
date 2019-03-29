@@ -1,14 +1,14 @@
 package com.uniquext.android.lightpermissiondemo;
 
 import android.Manifest;
-import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import android.widget.Toast;
+import android.util.Log;
 
-import com.uniquext.android.lightpermission.LightPermission;
 import com.uniquext.android.lightpermission.PermissionCallback;
+import com.uniquext.android.lightpermission.chain.TestPermission;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * 　 　　   へ　　　 　／|
  * 　　    /＼7　　　 ∠＿/
@@ -29,45 +29,44 @@ import com.uniquext.android.lightpermission.PermissionCallback;
  * @version 1.0
  * @date 2018/11/28  17:35
  */
-public class MainActivity extends AppCompatActivity implements PermissionCallback {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.textview).setOnClickListener(v -> {
-            if (LightPermission.hasPermissions(this, Manifest.permission.CAMERA)) {
-                Toast.makeText(this, "有权限", Toast.LENGTH_SHORT).show();
-            } else {
-                LightPermission.requestPermissions(this, 1, Manifest.permission.CAMERA);
-            }
-        });
+        findViewById(R.id.textview).setOnClickListener(v -> test());
 
-        findViewById(R.id.next).setOnClickListener(v -> {
-            startActivity(new Intent(this, SecondActivity.class));
-        });
+        findViewById(R.id.next).setOnClickListener(v -> test2());
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        LightPermission.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    private void test() {
+        TestPermission
+                .with(this)
+                .permission(Manifest.permission.CAMERA)
+                .result(new PermissionCallback() {
+                    @Override
+                    public void onPermissionNoLongerAsk(int requestCode, String permission) {
+                        Log.e("####", "onPermissionNoLongerAsk_" + requestCode);
+                    }
+
+                    @Override
+                    public void onPermissionsDenied(int requestCode) {
+                        Log.e("####", "onPermissionsDenied_" + requestCode);
+                    }
+
+                    @Override
+                    public void onPermissionsGranted(int requestCode) {
+                        Log.e("####", "onPermissionsGranted_" + requestCode);
+                    }
+                })
+                .request();
     }
 
-    @Override
-    public void onPermissionNoLongerAsk(int requestCode, String permission) {
-        Toast.makeText(this, "不再提醒", Toast.LENGTH_SHORT).show();
+    private void test2() {
+        TestPermission.with(this).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    @Override
-    public void onPermissionsDenied(int requestCode) {
-        Toast.makeText(this, "拒绝", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPermissionsGranted(int requestCode) {
-        Toast.makeText(this, "同意", Toast.LENGTH_SHORT).show();
-    }
 }
