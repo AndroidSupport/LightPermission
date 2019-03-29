@@ -5,14 +5,15 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-import com.uniquext.android.lightpermission.helper.PermissionHelper;
+import com.uniquext.android.lightpermission.deprecated.ChainPermission2;
+import com.uniquext.android.lightpermission.request.ChainPermission;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.annotation.Size;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -32,157 +33,36 @@ import androidx.fragment.app.Fragment;
  *
  * @author UniqueXT
  * @version 1.0
- * @date 2018/11/28  15:22
+ * @date 2019/3/29  11:27
  */
-public final class LightPermission {
+public class LightPermission {
 
-    /**
-     * Host异常
-     */
-    private static final String CAN_NOT_FOUND_HOST =
-            "Can ont found host! The host must be extends Activity, Fragment or SupportFragment.";
-    /**
-     * Callback异常
-     */
-    private static final String CAN_NOT_FOUND_PERMISSION_CALLBACK =
-            "Can ont found permission callback! The host must be implements PermissionCallback.";
-
-    private LightPermission() {
+    public static ChainPermission with(FragmentActivity activity) {
+        return new ChainPermission(activity.getSupportFragmentManager());
     }
 
-    /**
-     * 权限判断
-     *
-     * @param context     上下文
-     * @param permissions 权限集合
-     * @return 是否拥有所有权限
-     */
-    public static boolean hasPermissions(@NonNull Context context, @NonNull @Size(min = 1) String... permissions) {
+    public static ChainPermission with(Fragment fragment) {
+        return new ChainPermission(fragment.getChildFragmentManager());
+    }
+
+    public static boolean hasPermission(@NonNull Context context, @NonNull String permission) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         } else if (context.getApplicationInfo().targetSdkVersion < Build.VERSION_CODES.M) {
-            for (String permission : permissions) {
-                if (PermissionChecker.checkSelfPermission(context, permission)
-                        != PermissionChecker.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
+            return PermissionChecker.checkSelfPermission(context, permission) == PermissionChecker.PERMISSION_GRANTED;
         } else {
-            for (String permission : permissions) {
-                if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * 权限结果数组处理
-     *
-     * @param grantResults 结果
-     * @return 是否有权限
-     */
-    private static boolean judgmentGrantResults(int[] grantResults) {
-        if (grantResults.length == 0) {
-            return false;
-        }
-        for (int result : grantResults) {
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * activity 权限结果处理
-     *
-     * @param activity    activity
-     * @param requestCode 请求码
-     * @param permissions 权限集合
-     */
-    public static void requestPermissions(@NonNull Activity activity,
-                                          int requestCode,
-                                          @NonNull @Size(min = 1) String... permissions) {
-        requestPermissions(PermissionHelper.newInstance(activity), requestCode, permissions);
-    }
-
-    /**
-     * 在fragment中请求权限
-     *
-     * @param fragment    v4 fragment
-     * @param requestCode 请求码
-     * @param permissions 权限集合
-     */
-    public static void requestPermissions(@NonNull Fragment fragment,
-                                          int requestCode,
-                                          @NonNull @Size(min = 1) String... permissions) {
-        requestPermissions(PermissionHelper.newInstance(fragment), requestCode, permissions);
-    }
-
-    /**
-     * 在fragment中请求权限
-     *
-     * @param fragment    fragment
-     * @param requestCode 请求码
-     * @param permissions 权限集合
-     */
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public static void requestPermissions(@NonNull android.app.Fragment fragment,
-                                          int requestCode,
-                                          @NonNull @Size(min = 1) String... permissions) {
-        requestPermissions(PermissionHelper.newInstance(fragment), requestCode, permissions);
-    }
-
-    /**
-     * 请求权限
-     *
-     * @param helper      helper
-     * @param requestCode requestCode
-     * @param permissions permissions
-     */
-    private static void requestPermissions(@NonNull PermissionHelper helper, int requestCode, @NonNull @Size(min = 1) String... permissions) {
-        helper.requestPermissions(requestCode, permissions);
-    }
-
-    /**
-     * 权限结果处理
-     *
-     * @param requestCode  请求码
-     * @param permissions  权限集合
-     * @param grantResults 结果集合
-     * @param object       host & callback
-     */
-    public static void onRequestPermissionsResult(int requestCode,
-                                                  @NonNull String[] permissions,
-                                                  @NonNull int[] grantResults,
-                                                  @NonNull Object object) {
-        if (object instanceof PermissionCallback) {
-            boolean result = judgmentGrantResults(grantResults);
-            PermissionHelper helper = createPermissionHelper(object);
-            PermissionResponseBody body = new PermissionResponseBody(result, requestCode, permissions);
-            helper.onRequestPermissionsResult(body, (PermissionCallback) object);
-        } else {
-            throw new RuntimeException(CAN_NOT_FOUND_PERMISSION_CALLBACK);
+            return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
         }
     }
 
-    /**
-     * 构造对应host的帮助类
-     *
-     * @param object host
-     * @return helper
-     */
-    private static PermissionHelper createPermissionHelper(@NonNull Object object) {
-        if (object instanceof Activity) {
-            return PermissionHelper.newInstance((Activity) object);
-        } else if (object instanceof Fragment) {
-            return PermissionHelper.newInstance((Fragment) object);
-        } else if (object instanceof android.app.Fragment) {
-            return PermissionHelper.newInstance((android.app.Fragment) object);
-        } else {
-            throw new RuntimeException(CAN_NOT_FOUND_HOST);
-        }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ChainPermission2 with(Activity activity) {
+        return new ChainPermission2(activity.getFragmentManager());
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ChainPermission2 with(android.app.Fragment fragment) {
+        return new ChainPermission2(fragment.getFragmentManager());
+    }
+
 }

@@ -1,6 +1,4 @@
-package com.uniquext.android.lightpermission.chain;
-
-import android.util.Log;
+package com.uniquext.android.lightpermission.request;
 
 import com.uniquext.android.lightpermission.PermissionCallback;
 
@@ -31,40 +29,34 @@ import androidx.fragment.app.FragmentManager;
  * @version 1.0
  * @date 2019/3/29  11:27
  */
-public class PermissionBuilder {
+public class ChainPermission {
 
-    private static final String TAG = PermissionFragment.class.getSimpleName();
+    private static final String TAG = PermissionFragment.class.getName();
 
-    private int requestCode;
-    private String[] requestPermission;
-    private PermissionCallback callback;
-
+    private String[] mPermissionRequest;
     private WeakReference<PermissionFragment> mFragmentWeakReference;
 
-    public PermissionBuilder(FragmentManager fragmentManager) {
+    public ChainPermission(FragmentManager fragmentManager) {
         if (fragmentManager.findFragmentByTag(TAG) == null) {
-            Log.e("####", "PermissionFragment == null");
             mFragmentWeakReference = new WeakReference<>(new PermissionFragment());
             fragmentManager.beginTransaction().add(mFragmentWeakReference.get(), TAG).commitNowAllowingStateLoss();
         } else {
-            Log.e("####", "PermissionFragment != null");
             mFragmentWeakReference = new WeakReference<>((PermissionFragment) fragmentManager.findFragmentByTag(TAG));
         }
     }
 
-    public PermissionBuilder permission(@NonNull @Size(min = 1) String... permissions) {
-        this.requestPermission = permissions;
+    public ChainPermission permissions(@NonNull @Size(min = 1) String... permissions) {
+        this.mPermissionRequest = permissions;
         return this;
     }
 
-    public PermissionBuilder result(@NonNull PermissionCallback callback) {
-        this.callback = callback;
-        return this;
-    }
-
-    public void request() {
-        int requestCode = Arrays.hashCode(requestPermission) & 0xffff;
-        mFragmentWeakReference.get().addPermissionCallback(requestCode, callback);
-        mFragmentWeakReference.get().requestPermissions(requestCode, requestPermission);
+    public void result(@NonNull PermissionCallback callback) {
+        if (mPermissionRequest == null) {
+            throw new RuntimeException("No requested permission.");
+        } else {
+            int requestCode = Arrays.hashCode(mPermissionRequest) & 0xffff;
+            mFragmentWeakReference.get().addPermissionCallback(requestCode, callback);
+            mFragmentWeakReference.get().requestPermissions(requestCode, mPermissionRequest);
+        }
     }
 }

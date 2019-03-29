@@ -1,13 +1,13 @@
-package com.uniquext.android.lightpermission.chain;
+package com.uniquext.android.lightpermission.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import androidx.annotation.IntDef;
 
-import static com.uniquext.android.lightpermission.chain.ResultType.DENIED;
-import static com.uniquext.android.lightpermission.chain.ResultType.GRANTED;
-import static com.uniquext.android.lightpermission.chain.ResultType.NO_LONGER_ASK;
+import static com.uniquext.android.lightpermission.annotation.ResultType.DENIED;
+import static com.uniquext.android.lightpermission.annotation.ResultType.GRANTED;
+import static com.uniquext.android.lightpermission.annotation.ResultType.NO_REQUEST;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -30,9 +30,9 @@ import static com.uniquext.android.lightpermission.chain.ResultType.NO_LONGER_AS
  * @date 2019/3/29  11:30
  */
 @Retention(RetentionPolicy.SOURCE)
-@IntDef({DENIED, GRANTED, NO_LONGER_ASK})
+@IntDef({DENIED, GRANTED, NO_REQUEST})
 public @interface ResultType {
     int DENIED = 0b00;
     int GRANTED = 0b01;
-    int NO_LONGER_ASK = 0b10;
+    int NO_REQUEST = 0b10;
 }

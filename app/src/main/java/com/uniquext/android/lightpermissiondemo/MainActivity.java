@@ -1,11 +1,12 @@
 package com.uniquext.android.lightpermissiondemo;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.uniquext.android.lightpermission.LightPermission;
 import com.uniquext.android.lightpermission.PermissionCallback;
-import com.uniquext.android.lightpermission.chain.TestPermission;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,30 +44,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test() {
-        TestPermission
+        LightPermission
                 .with(this)
-                .permission(Manifest.permission.CAMERA)
+                .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .result(new PermissionCallback() {
                     @Override
-                    public void onPermissionNoLongerAsk(int requestCode, String permission) {
-                        Log.e("####", "onPermissionNoLongerAsk_" + requestCode);
+                    public void onNoRequest(String[] permissions) {
+                        for (String permission : permissions) {
+                            Log.e("####", "onNoRequest " + permission);
+                        }
                     }
 
                     @Override
-                    public void onPermissionsDenied(int requestCode) {
-                        Log.e("####", "onPermissionsDenied_" + requestCode);
+                    public void onDenied(String[] permissions) {
+                        for (String permission : permissions) {
+                            Log.e("####", "onDenied " + permission);
+                        }
                     }
 
                     @Override
-                    public void onPermissionsGranted(int requestCode) {
-                        Log.e("####", "onPermissionsGranted_" + requestCode);
+                    public void onGranted() {
+                        Log.e("####", "onGranted");
                     }
-                })
-                .request();
+                });
     }
 
     private void test2() {
-        TestPermission.with(this).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        startActivity(new Intent(this, SecondActivity.class));
     }
 
 }

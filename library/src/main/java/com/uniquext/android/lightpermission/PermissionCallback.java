@@ -18,28 +18,26 @@ package com.uniquext.android.lightpermission;
  *
  * @author UniqueXT
  * @version 1.0
- * @date 2018/11/28  15:22
+ * @date 2019/3/29  11:54
  */
 public interface PermissionCallback {
+
     /**
-     * 不在请求权限
-     *
-     * @param requestCode 请求码
-     * @param permission  请求权限
+     * 有权限
      */
-    void onPermissionNoLongerAsk(int requestCode, String permission);
+    void onGranted();
 
     /**
      * 无权限
      *
-     * @param requestCode 请求码
+     * @param permissions 被拒绝的权限
      */
-    void onPermissionsDenied(int requestCode);
+    void onDenied(String[] permissions);
 
     /**
-     * 有权限
+     * 不再请求权限
      *
-     * @param requestCode 请求码
+     * @param permissions 不请求直接拒绝的权限
      */
-    void onPermissionsGranted(int requestCode);
+    void onNoRequest(String[] permissions);
 }
