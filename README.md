@@ -12,7 +12,7 @@ allprojects {
     }
 }
 
-implementation 'com.uniquext.android:permission:2.0.0-'
+implementation 'com.uniquext.android:permission:2.0.0-SNAPSHOT'
 ```
 
 # 使用方法
