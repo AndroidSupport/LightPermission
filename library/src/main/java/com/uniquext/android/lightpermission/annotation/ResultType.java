@@ -1,4 +1,13 @@
-package com.uniquext.android.lightpermission;
+package com.uniquext.android.lightpermission.annotation;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+
+import static com.uniquext.android.lightpermission.annotation.ResultType.DENIED;
+import static com.uniquext.android.lightpermission.annotation.ResultType.GRANTED;
+import static com.uniquext.android.lightpermission.annotation.ResultType.NO_REQUEST;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -18,26 +27,12 @@ package com.uniquext.android.lightpermission;
  *
  * @author UniqueXT
  * @version 1.0
- * @date 2019/3/29  11:54
+ * @date 2019/3/29  11:30
  */
-public interface PermissionCallback {
-
-    /**
-     * 有权限
-     */
-    void onGranted();
-
-    /**
-     * 无权限
-     *
-     * @param permissions 被拒绝的权限
-     */
-    void onDenied(String[] permissions);
-
-    /**
-     * 不再请求权限
-     *
-     * @param permissions 不请求直接拒绝的权限
-     */
-    void onNoRequest(String[] permissions);
+@Retention(RetentionPolicy.SOURCE)
+@IntDef({DENIED, GRANTED, NO_REQUEST})
+public @interface ResultType {
+    int DENIED = 0b00;
+    int GRANTED = 0b01;
+    int NO_REQUEST = 0b10;
 }
