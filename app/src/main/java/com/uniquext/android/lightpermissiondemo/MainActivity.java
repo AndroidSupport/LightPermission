@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         LightPermission
                 .with(this)
                 .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                .result(null);
                 .result(new PermissionCallback() {
 
                     @Override

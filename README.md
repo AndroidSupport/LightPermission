@@ -1,8 +1,9 @@
 # LightPermission
-一个轻量级的android权限管理器。
-<br>目前最新版2.0支持链式调用
+A lightweight android permission manager.
+<br>The latest version 2.0 supports Chain-style, currently.
+<br>[Chinese](https://github.com/AndroidSupport/LightPermission/blob/master/README_zh.md)
 
-# 添加依赖
+# Dependency
 ```
 allprojects {
     repositories {
@@ -15,8 +16,8 @@ allprojects {
 implementation 'com.uniquext.android:permission:2.0.0-SNAPSHOT'
 ```
 
-# 使用方法
-### 示例
+# Instructions
+### Demo
 ```
 LightPermission
         .with(this)
@@ -25,42 +26,43 @@ LightPermission
 
             @Override
             public void onGranted() {
-                //  已获取相机和存储权限
+                //  Camera and storage permissions have been acquired
             }
 
             @Override
             public void onDenied(String[] permissions) {
-                //  被拒绝的权限集合
+                //  Permission set rejected on request
             }
 
             @Override
             public void onNoRequest(String[] permissions) {
-                //  被设置为不再询问的权限集合
+                //  Permission set that no longer to ask
             }
 
         });
 ```
-### 解释说明
+### Explanation
 `with(this)`
-* 该`this`可以是`FragmentActivity`或`Fragment`（当使用`androidx.fragment.app`包时）；
-* 亦可以是`Activity`或`android.app.Fragment`（当使用`android.app`包时）
+* The `this` parameter can be a `FragmentActivity` or `Fragment` (when using `androidx.fragment.app` package).
+* And can also be a `Activity` or `android.app.Fragment` (when using `android.app` package).
 
 `permissions`
-需要请求的权限，可以是一个也可以是多个，但至少要有一个
+The permission which to be requested, at least one in number.
 
 `result(new PermissionCallback())`
-请求结果回调
-* `onGranted` 当所有请求的权限都被赋予的时候调用
-* `onDenied` 当存在有被拒绝的权限时调用，形参`permissions`为被拒绝的权限集合
-* `onNoRequest` 当存在有拒绝的权限时且用户设置为不再询问时调用，形参`permissions`为被设置为不再询问的权限集合
+permission callback
+* `onGranted` Called when all requested permissions are granted.
+* `onDenied` Called when there is a denied permission, the parameter `permissions` is the denied permission set.
+* `onNoRequest` Called when there is a denied permissions and those were set to no longer ask, the parameter `permissions` is the set of permissions that were set to no longer ask.
 
-# 历史版本
-[查看历史版本](https://github.com/AndroidSupport/LightPermission/releases)
+# History
+[View historical version](https://github.com/AndroidSupport/LightPermission/releases)
 
-# 注意事项
-* 1.x 版本的使用说明点击[此处](https://github.com/AndroidSupport/LightPermission/blob/master/README_v1.md)
-* 该库目前处于测试阶段，但本人在实际项目中使用时暂未出现问题，欢迎大家贡献代码和意见
-* 如果您觉得还不错，请点个星星~
+# Tips
+* Click [Here](https://github.com/AndroidSupport/LightPermission/blob/master/README_v1.md) to look instructions of version 1.x.
+* The library is currently in beta, but I have not encountered any issue in actual projects.
+* Welcome everyone to contribute code and comments.
+* If you feel ok, please click Star.
 
 # License
 ```

@@ -39,7 +39,6 @@ import androidx.fragment.app.Fragment;
  */
 public class PermissionFragment extends Fragment {
 
-
     private SparseArray<PermissionCallback> permissionCallback = new SparseArray<>();
 
     @Override
@@ -48,7 +47,7 @@ public class PermissionFragment extends Fragment {
         this.setRetainInstance(true);
     }
 
-    void addPermissionCallback(int requestCode, PermissionCallback callback) {
+    void addPermissionCallback(int requestCode, @NonNull PermissionCallback callback) {
         permissionCallback.put(requestCode, callback);
     }
 
