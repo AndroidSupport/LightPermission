@@ -13,7 +13,7 @@ allprojects {
     }
 }
 
-implementation 'com.uniquext.android:permission:2.0.0'
+implementation 'com.uniquext.android:permission:2.0.1'
 ```
 
 # Instructions
@@ -35,8 +35,8 @@ LightPermission
             }
 
             @Override
-            public void onLongerAsk(String[] permissions) {
-                //  Permission set that no longer to ask
+            public void onNeverRequest(String[] permissions) {
+                //  The permission set is set to "Do not ask again after prohibition"
             }
 
         });

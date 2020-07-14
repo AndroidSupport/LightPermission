@@ -15,45 +15,37 @@ allprojects {
 ```
 **2.在模块`build.gradle`中添加依赖**
 ```
-implementation 'com.uniquext.android:permission:2.0.0'
+implementation 'com.uniquext.android:permission:2.0.1'
 ```
 
 # 使用方法
-**1.在`onRequestPermissionsResult`中执行`LightPermission`回调**
+**1.案例**
 ```
-@Override
-public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    LightPermission.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-}
+LightPermission
+        .with(this)
+        .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        .result(new PermissionCallback() {
+
+            @Override
+            public void onGranted() {
+                Toast.makeText(this, "同意", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDenied(String[] permissions) {
+                Toast.makeText(this, "拒绝", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNeverRequest(String[] permissions) {
+                Toast.makeText(this, "禁止后不再询问", Toast.LENGTH_SHORT).show();
+            }
+
+        });
 ```
 **2.判断权限**
 ```
 LightPermission.hasPermissions(Context context, String... permissions)
-```
-**3.申请权限**
-```
-LightPermission.requestPermissions(Activity activity, int requestCode, String... permissions);
-LightPermission.requestPermissions(android.app.Fragment fragment, int requestCode, String... permissions);
-LightPermission.requestPermissions(android.support.v4.app.Fragment fragment, int requestCode, String... permissions);
-```
-**4.结果回调**
-<br>实现`PermissionCallback`
-```
-@Override
-public void onPermissionNoLongerAsk(int requestCode, String permission) {
-    Toast.makeText(this, "不再提醒", Toast.LENGTH_SHORT).show();
-}
-
-@Override
-public void onPermissionsDenied(int requestCode) {
-    Toast.makeText(this, "拒绝", Toast.LENGTH_SHORT).show();
-}
-
-@Override
-public void onPermissionsGranted(int requestCode) {
-    Toast.makeText(this, "同意", Toast.LENGTH_SHORT).show();
-}
 ```
 
 # 注意事项
