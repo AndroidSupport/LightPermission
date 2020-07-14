@@ -5,15 +5,15 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-import com.uniquext.android.lightpermission.deprecated.ChainPermission2;
-import com.uniquext.android.lightpermission.request.ChainPermission;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+
+import com.uniquext.android.lightpermission.deprecated.ChainPermission2;
+import com.uniquext.android.lightpermission.request.ChainPermission;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -45,6 +45,25 @@ public class LightPermission {
         return new ChainPermission(fragment.getChildFragmentManager());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static ChainPermission2 with(Activity activity) {
+        return new ChainPermission2(activity.getFragmentManager());
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static ChainPermission2 with(android.app.Fragment fragment) {
+        return new ChainPermission2(fragment.getFragmentManager());
+    }
+
+    public static boolean hasPermission(@NonNull Context context, @NonNull String... permissions) {
+        for (String permission : permissions) {
+            if (!hasPermission(context, permission)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean hasPermission(@NonNull Context context, @NonNull String permission) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
@@ -53,16 +72,6 @@ public class LightPermission {
         } else {
             return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public ChainPermission2 with(Activity activity) {
-        return new ChainPermission2(activity.getFragmentManager());
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public ChainPermission2 with(android.app.Fragment fragment) {
-        return new ChainPermission2(fragment.getFragmentManager());
     }
 
 }

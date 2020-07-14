@@ -1,9 +1,13 @@
 package com.uniquext.android.lightpermission.request;
 
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.SparseArray;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.Size;
+import androidx.fragment.app.Fragment;
 
 import com.uniquext.android.lightpermission.LightPermission;
 import com.uniquext.android.lightpermission.PermissionCallback;
@@ -11,11 +15,6 @@ import com.uniquext.android.lightpermission.annotation.ResultType;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.Size;
-import androidx.fragment.app.Fragment;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -74,9 +73,10 @@ public class PermissionFragment extends Fragment {
         }
     }
 
-    @SuppressLint("SwitchIntDef")
-    private void classifyResult(List<String> deniedList, List<String> noRequestList,
-                                @NonNull String[] permissions, @NonNull int[] grantResults) {
+    private void classifyResult(@NonNull List<String> deniedList,
+                                @NonNull List<String> noRequestList,
+                                @NonNull String[] permissions,
+                                @NonNull int[] grantResults) {
         for (int i = 0; i < permissions.length; ++i) {
             switch (reprocessResult(permissions[i], grantResults[i])) {
                 case ResultType.DENIED:
@@ -85,20 +85,20 @@ public class PermissionFragment extends Fragment {
                 case ResultType.NO_REQUEST:
                     noRequestList.add(permissions[i]);
                     break;
+                case ResultType.GRANTED:
+                default:
+                    break;
             }
         }
     }
 
-    private void dealCallback(int requestCode, List<String> deniedList, List<String> noRequestList) {
+    private void dealCallback(int requestCode, @NonNull List<String> deniedList, @NonNull List<String> noRequestList) {
         if (deniedList.isEmpty() && noRequestList.isEmpty()) {
             permissionCallback.get(requestCode).onGranted();
+        } else if (!noRequestList.isEmpty()) {
+            permissionCallback.get(requestCode).onNeverRequest(noRequestList.toArray(new String[0]));
         } else {
-            if (!deniedList.isEmpty()) {
-                permissionCallback.get(requestCode).onDenied(deniedList.toArray(new String[0]));
-            }
-            if (!noRequestList.isEmpty()) {
-                permissionCallback.get(requestCode).onNoRequest(noRequestList.toArray(new String[0]));
-            }
+            permissionCallback.get(requestCode).onDenied(deniedList.toArray(new String[0]));
         }
     }
 

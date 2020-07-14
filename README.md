@@ -13,7 +13,7 @@ allprojects {
     }
 }
 
-implementation 'com.uniquext.android:permission:2.0.0-SNAPSHOT'
+implementation 'com.uniquext.android:permission:2.0.0'
 ```
 
 # Instructions
@@ -35,7 +35,7 @@ LightPermission
             }
 
             @Override
-            public void onNoRequest(String[] permissions) {
+            public void onLongerAsk(String[] permissions) {
                 //  Permission set that no longer to ask
             }
 
@@ -53,7 +53,7 @@ The permission which to be requested, at least one in number.
 permission callback
 * `onGranted` Called when all requested permissions are granted.
 * `onDenied` Called when there is a denied permission, the parameter `permissions` is the denied permission set.
-* `onNoRequest` Called when there is a denied permissions and those were set to no longer ask, the parameter `permissions` is the set of permissions that were set to no longer ask.
+* `onLongerAsk` Called when there is a denied permissions and those were set to no longer ask, the parameter `permissions` is the set of permissions that were set to no longer ask.
 
 # History
 [View historical version](https://github.com/AndroidSupport/LightPermission/releases)

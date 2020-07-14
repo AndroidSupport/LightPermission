@@ -62,9 +62,9 @@ public class MainFragment extends Fragment {
                 .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .result(new PermissionCallback() {
                     @Override
-                    public void onNoRequest(String[] permissions) {
+                    public void onNeverRequest(String[] permissions) {
                         for (String permission : permissions) {
-                            Log.e("####", "onNoRequest " + permission);
+                            Log.e("####", "onNeverRequest " + permission);
                         }
                     }
 

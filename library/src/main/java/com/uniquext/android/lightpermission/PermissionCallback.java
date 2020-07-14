@@ -1,5 +1,9 @@
 package com.uniquext.android.lightpermission;
 
+import com.uniquext.android.lightpermission.callback.DeniedCallback;
+import com.uniquext.android.lightpermission.callback.GrantedCallback;
+import com.uniquext.android.lightpermission.callback.NoLongerAskCallback;
+
 /**
  * 　 　　   へ　　　 　／|
  * 　　    /＼7　　　 ∠＿/
@@ -17,27 +21,23 @@ package com.uniquext.android.lightpermission;
  * ━━━━━━感觉萌萌哒━━━━━━
  *
  * @author UniqueXT
- * @version 1.0
+ * @version 1.3
  * @date 2019/3/29  11:54
  */
-public interface PermissionCallback {
+public class PermissionCallback implements GrantedCallback, DeniedCallback, NoLongerAskCallback {
 
-    /**
-     * 有权限
-     */
-    void onGranted();
+    @Override
+    public void onDenied(String[] permissions) {
 
-    /**
-     * 无权限
-     *
-     * @param permissions 被拒绝的权限
-     */
-    void onDenied(String[] permissions);
+    }
 
-    /**
-     * 不再请求权限
-     *
-     * @param permissions 不请求直接拒绝的权限
-     */
-    void onNoRequest(String[] permissions);
+    @Override
+    public void onGranted() {
+
+    }
+
+    @Override
+    public void onNeverRequest(String[] permissions) {
+
+    }
 }

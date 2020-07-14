@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         LightPermission
                 .with(this)
                 .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(object : PermissionCallback {
+                .result(object : PermissionCallback() {
 
                     override fun onGranted() {
                         Log.e("####", "onGranted")
@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-                    override fun onNoRequest(permissions: Array<String>) {
+                    override fun onNeverRequest(permissions: Array<String>) {
                         for (permission in permissions) {
-                            Log.e("####", "onNoRequest $permission")
+                            Log.e("####", "onNeverRequest $permission")
                         }
                     }
 
