@@ -5,7 +5,13 @@ import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.SparseArray;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.Size;
 
 import com.uniquext.android.lightpermission.LightPermission;
 import com.uniquext.android.lightpermission.PermissionCallback;
@@ -13,11 +19,6 @@ import com.uniquext.android.lightpermission.annotation.ResultType;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.Size;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -70,7 +71,7 @@ public class PermissionFragment2 extends Fragment {
     private int reprocessResult(String permission, int grantResults) {
         if (grantResults == PackageManager.PERMISSION_GRANTED && LightPermission.hasPermission(getContext(), permission)) {
             return ResultType.GRANTED;
-        } else if (!shouldShowRequestPermissionRationale(permission)) {
+        } else if (!shouldShowRequestPermissionRationale(permission) || TextUtils.isEmpty(permission)) {
             return ResultType.NO_REQUEST;
         } else {
             return ResultType.DENIED;

@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.PermissionChecker;
@@ -37,6 +39,9 @@ import com.uniquext.android.lightpermission.request.ChainPermission;
  */
 public class LightPermission {
 
+    public static final String TAG = "LightPermission";
+    private static Config mConfig = new Config();
+
     public static ChainPermission with(FragmentActivity activity) {
         return new ChainPermission(activity.getSupportFragmentManager());
     }
@@ -64,13 +69,27 @@ public class LightPermission {
         return true;
     }
 
-    public static boolean hasPermission(@NonNull Context context, @NonNull String permission) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+    public static boolean hasPermission(@NonNull Context context, @Nullable String permission) {
+        if (TextUtils.isEmpty(permission)) {
+            return false;
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         } else if (context.getApplicationInfo().targetSdkVersion < Build.VERSION_CODES.M) {
             return PermissionChecker.checkSelfPermission(context, permission) == PermissionChecker.PERMISSION_GRANTED;
         } else {
             return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+    public static class Config {
+        private boolean debug = BuildConfig.DEBUG;
+
+        public static boolean isDebug() {
+            return mConfig.debug;
+        }
+
+        public static void setDebug(boolean debug) {
+            mConfig.debug = debug;
         }
     }
 

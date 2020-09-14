@@ -2,6 +2,7 @@ package com.uniquext.android.lightpermission.request;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
@@ -66,7 +67,7 @@ public class PermissionFragment extends Fragment {
     private int reprocessResult(String permission, int grantResults) {
         if (grantResults == PackageManager.PERMISSION_GRANTED && LightPermission.hasPermission(requireContext(), permission)) {
             return ResultType.GRANTED;
-        } else if (!shouldShowRequestPermissionRationale(permission)) {
+        } else if (!shouldShowRequestPermissionRationale(permission) || TextUtils.isEmpty(permission)) {
             return ResultType.NO_REQUEST;
         } else {
             return ResultType.DENIED;
