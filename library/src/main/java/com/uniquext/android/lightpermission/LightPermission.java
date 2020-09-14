@@ -39,9 +39,6 @@ import com.uniquext.android.lightpermission.request.ChainPermission;
  */
 public class LightPermission {
 
-    public static final String TAG = "LightPermission";
-    private static Config mConfig = new Config();
-
     public static ChainPermission with(FragmentActivity activity) {
         return new ChainPermission(activity.getSupportFragmentManager());
     }
@@ -78,18 +75,6 @@ public class LightPermission {
             return PermissionChecker.checkSelfPermission(context, permission) == PermissionChecker.PERMISSION_GRANTED;
         } else {
             return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
-        }
-    }
-
-    public static class Config {
-        private boolean debug = BuildConfig.DEBUG;
-
-        public static boolean isDebug() {
-            return mConfig.debug;
-        }
-
-        public static void setDebug(boolean debug) {
-            mConfig.debug = debug;
         }
     }
 
