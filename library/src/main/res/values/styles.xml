@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppSettingDialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/buttonBarPositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/buttonBarNegativeButtonStyle</item>
+    </style>
+
+    <style name="buttonBarPositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">#FFFE525A</item>
+    </style>
+
+    <style name="buttonBarNegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">#4D262928</item>
+    </style>
+</resources>

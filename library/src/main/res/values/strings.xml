@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_dialog_title">Permission Request</string>
+    <string name="settings_dialog_description">
+        This feature is restricted because you have previously disabled the relevant permissions, please turn it on in the app settings.
+    </string>
+    <string name="settings_dialog_position">confirm</string>
+    <string name="settings_dialog_negative">cancel</string>
+</resources>

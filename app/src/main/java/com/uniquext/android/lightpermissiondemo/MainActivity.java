@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.uniquext.android.lightpermission.AppSettingsDialog;
 import com.uniquext.android.lightpermission.LightPermission;
 import com.uniquext.android.lightpermission.PermissionCallback;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
                         for (String permission : permissions) {
                             Log.e("####", "onNeverRequest " + permission);
                         }
+                        new AppSettingsDialog.Builder(MainActivity.this)
+//                                .title("TITLE")
+//                                .message("MESSAGE")
+                                .show();
                     }
 
                 });
