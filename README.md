@@ -37,6 +37,7 @@ LightPermission
             @Override
             public void onNeverRequest(String[] permissions) {
                 //  The permission set is set to "Do not ask again after prohibition"
+                new AppSettingsDialog.Builder(this) .show();
             }
 
         });
