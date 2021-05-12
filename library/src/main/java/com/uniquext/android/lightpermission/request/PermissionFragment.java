@@ -94,12 +94,14 @@ public class PermissionFragment extends Fragment {
     }
 
     private void dealCallback(int requestCode, @NonNull List<String> deniedList, @NonNull List<String> noRequestList) {
+        PermissionCallback callback = permissionCallback.get(requestCode);
+        if (callback == null) return;
         if (deniedList.isEmpty() && noRequestList.isEmpty()) {
-            permissionCallback.get(requestCode).onGranted();
+            callback.onGranted();
         } else if (!noRequestList.isEmpty()) {
-            permissionCallback.get(requestCode).onNeverRequest(noRequestList.toArray(new String[0]));
+            callback.onNeverRequest(noRequestList.toArray(new String[0]));
         } else {
-            permissionCallback.get(requestCode).onDenied(deniedList.toArray(new String[0]));
+            callback.onDenied(deniedList.toArray(new String[0]));
         }
     }
 
