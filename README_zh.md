@@ -15,7 +15,7 @@ allprojects {
 ```
 **2.在模块`build.gradle`中添加依赖**
 ```
-implementation 'com.uniquext.android:permission:2.0.1'
+implementation 'com.uniquext.android:permission:2.1.0'
 ```
 
 # 使用方法
@@ -28,24 +28,24 @@ LightPermission
 
             @Override
             public void onGranted() {
-                Toast.makeText(this, "同意", Toast.LENGTH_SHORT).show();
+                // TODO 同意
             }
 
             @Override
             public void onDenied(String[] permissions) {
-                Toast.makeText(this, "拒绝", Toast.LENGTH_SHORT).show();
+                // TODO 拒绝
             }
 
             @Override
             public void onNeverRequest(String[] permissions) {
-                Toast.makeText(this, "禁止后不再询问", Toast.LENGTH_SHORT).show();
+                new AppSettingsDialog.Builder(this).show();
             }
 
         });
 ```
 **2.判断权限**
 ```
-LightPermission.hasPermissions(Context context, String... permissions)
+LightPermission.hasPermissions(Context context, String... permissions);
 ```
 
 # 注意事项

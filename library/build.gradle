@@ -33,9 +33,12 @@ android {
             }
         }
     }
-
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
-    compileOnly 'androidx.appcompat:appcompat:1.1.0-alpha03'
+    compileOnly 'androidx.appcompat:appcompat:1.2.0'
 }

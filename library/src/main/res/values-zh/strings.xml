@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_dialog_title">权限申请</string>
+    <string name="settings_dialog_description">
+        由于您之前已禁用了相关权限，该功能受到限制，请在应用设置中将其打开。
+    </string>
+    <string name="settings_dialog_position">去设置</string>
+    <string name="settings_dialog_negative">取消</string>
+</resources>
