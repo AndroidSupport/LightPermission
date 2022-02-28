@@ -37,7 +37,7 @@ LightPermission
             }
 
             @Override
-            public void onNeverRequest(String[] permissions) {
+            public void onProhibited(String[] permissions) {
                 new AppSettingsDialog.Builder(this).show();
             }
 

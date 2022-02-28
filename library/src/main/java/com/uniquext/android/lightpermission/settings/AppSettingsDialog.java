@@ -1,4 +1,4 @@
-package com.uniquext.android.lightpermission;
+package com.uniquext.android.lightpermission.settings;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
+
+import com.uniquext.android.lightpermission.R;
 
 public class AppSettingsDialog {
 

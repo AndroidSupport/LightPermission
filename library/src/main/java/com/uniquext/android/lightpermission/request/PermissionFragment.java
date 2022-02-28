@@ -11,7 +11,6 @@ import androidx.annotation.Size;
 import androidx.fragment.app.Fragment;
 
 import com.uniquext.android.lightpermission.LightPermission;
-import com.uniquext.android.lightpermission.PermissionCallback;
 import com.uniquext.android.lightpermission.annotation.ResultType;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ import java.util.List;
  */
 public class PermissionFragment extends Fragment {
 
-    private SparseArray<PermissionCallback> permissionCallback = new SparseArray<>();
+    private SparseArray<CustomPermissionCallback> permissionCallback = new SparseArray<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class PermissionFragment extends Fragment {
         this.setRetainInstance(true);
     }
 
-    void addPermissionCallback(int requestCode, @NonNull PermissionCallback callback) {
+    void addPermissionCallback(int requestCode, @NonNull CustomPermissionCallback callback) {
         permissionCallback.put(requestCode, callback);
     }
 
@@ -94,12 +93,12 @@ public class PermissionFragment extends Fragment {
     }
 
     private void dealCallback(int requestCode, @NonNull List<String> deniedList, @NonNull List<String> noRequestList) {
-        PermissionCallback callback = permissionCallback.get(requestCode);
+        CustomPermissionCallback callback = permissionCallback.get(requestCode);
         if (callback == null) return;
         if (deniedList.isEmpty() && noRequestList.isEmpty()) {
             callback.onGranted();
         } else if (!noRequestList.isEmpty()) {
-            callback.onNeverRequest(noRequestList.toArray(new String[0]));
+            callback.onProhibited(noRequestList.toArray(new String[0]));
         } else {
             callback.onDenied(deniedList.toArray(new String[0]));
         }

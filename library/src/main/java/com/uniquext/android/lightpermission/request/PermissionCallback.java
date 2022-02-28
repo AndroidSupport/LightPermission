@@ -1,8 +1,4 @@
-package com.uniquext.android.lightpermission;
-
-import com.uniquext.android.lightpermission.callback.DeniedCallback;
-import com.uniquext.android.lightpermission.callback.GrantedCallback;
-import com.uniquext.android.lightpermission.callback.NoLongerAskCallback;
+package com.uniquext.android.lightpermission.request;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -24,7 +20,7 @@ import com.uniquext.android.lightpermission.callback.NoLongerAskCallback;
  * @version 1.3
  * @date 2019/3/29  11:54
  */
-public class PermissionCallback implements GrantedCallback, DeniedCallback, NoLongerAskCallback {
+public class PermissionCallback extends CustomPermissionCallback {
 
     @Override
     public void onDenied(String[] permissions) {
@@ -37,7 +33,7 @@ public class PermissionCallback implements GrantedCallback, DeniedCallback, NoLo
     }
 
     @Override
-    public void onNeverRequest(String[] permissions) {
+    public void onProhibited(String[] permissions) {
 
     }
 }

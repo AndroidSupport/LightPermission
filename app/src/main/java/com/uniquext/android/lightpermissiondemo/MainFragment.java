@@ -2,15 +2,12 @@ package com.uniquext.android.lightpermissiondemo;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.uniquext.android.lightpermission.PermissionCallback;
+import com.uniquext.android.lightpermission.request.PermissionCallback;
 import com.uniquext.android.lightpermission.LightPermission;
 
 import androidx.annotation.NonNull;
@@ -60,11 +57,11 @@ public class MainFragment extends Fragment {
         LightPermission
                 .with(this)
                 .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new PermissionCallback() {
+                .request(new PermissionCallback() {
                     @Override
-                    public void onNeverRequest(String[] permissions) {
+                    public void onProhibited(String[] permissions) {
                         for (String permission : permissions) {
-                            Log.e("####", "onNeverRequest " + permission);
+                            Log.e("####", "onProhibited " + permission);
                         }
                     }
 

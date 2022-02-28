@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.uniquext.android.lightpermission.LightPermission
-import com.uniquext.android.lightpermission.PermissionCallback
+import com.uniquext.android.lightpermission.request.PermissionCallback
 import com.uniquext.android.lightpermissiondemo.R
 import com.uniquext.android.lightpermissiondemo.SecondActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         LightPermission
                 .with(this)
                 .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(object : PermissionCallback() {
+                .request(object : PermissionCallback() {
 
                     override fun onGranted() {
                         Log.e("####", "onGranted")
@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-                    override fun onNeverRequest(permissions: Array<String>) {
+                    override fun onProhibited(permissions: Array<String>) {
                         for (permission in permissions) {
-                            Log.e("####", "onNeverRequest $permission")
+                            Log.e("####", "onProhibited $permission")
                         }
                     }
 

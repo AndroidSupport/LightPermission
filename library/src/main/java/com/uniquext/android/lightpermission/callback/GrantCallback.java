@@ -1,6 +1,6 @@
 package com.uniquext.android.lightpermission.callback;
 
-public interface GrantedCallback {
+public interface GrantCallback {
     /**
      * 有权限
      */

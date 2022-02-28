@@ -1,6 +1,6 @@
 package com.uniquext.android.lightpermission.callback;
 
-public interface DeniedCallback {
+public interface DenyCallback {
     /**
      * 无权限
      *
