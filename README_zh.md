@@ -15,7 +15,7 @@ allprojects {
 ```
 **2.在模块`build.gradle`中添加依赖**
 ```
-implementation 'com.uniquext.android:permission:2.1.0'
+implementation 'com.uniquext.android:permission:2.0.4'
 ```
 
 # 使用方法
@@ -24,16 +24,16 @@ implementation 'com.uniquext.android:permission:2.1.0'
 LightPermission
         .with(this)
         .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        .result(new PermissionCallback() {
+        .request(new PermissionCallback() {
 
             @Override
             public void onGranted() {
-                // TODO 同意
+                // 同意
             }
 
             @Override
             public void onDenied(String[] permissions) {
-                // TODO 拒绝
+                // 拒绝
             }
 
             @Override
@@ -43,7 +43,24 @@ LightPermission
 
         });
 ```
-**2.判断权限**
+**2.v2.1.1-snapshot demo**
+```
+LightPermission
+        .with(this)
+        .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        .grant(() -> {
+            //  同意
+        })
+        .deny(permissions -> {
+            //  拒绝
+        })
+        .prohibit(permissions -> {
+            //  拒绝权限并禁止请求
+            new AppSettingsDialog.Builder(this) .show();
+        })
+        .request();
+```
+**3.判断权限**
 ```
 LightPermission.hasPermissions(Context context, String... permissions);
 ```

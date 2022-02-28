@@ -6,9 +6,9 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.uniquext.android.lightpermission.settings.AppSettingsDialog;
 import com.uniquext.android.lightpermission.LightPermission;
 import com.uniquext.android.lightpermission.request.PermissionCallback;
+import com.uniquext.android.lightpermission.settings.AppSettingsDialog;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.next).setOnClickListener(v -> test2());
 
     }
+
     private static final String[] READ_PERMS = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE

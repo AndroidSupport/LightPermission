@@ -22,7 +22,7 @@ implementation 'com.uniquext.android:permission:2.0.4'
 LightPermission
         .with(this)
         .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        .result(new PermissionCallback() {
+        .request(new PermissionCallback() {
 
             @Override
             public void onGranted() {
@@ -41,6 +41,23 @@ LightPermission
             }
 
         });
+```
+### Demo for v2.1.1-snapshot
+```
+LightPermission
+        .with(this)
+        .permissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        .grant(() -> {
+            //  Camera and storage permissions have been acquired
+        })
+        .deny(permissions -> {
+            //  Permission set rejected on request
+        })
+        .prohibit(permissions -> {
+            //  The permission set is set to "Do not ask again after prohibition"
+            new AppSettingsDialog.Builder(this) .show();
+        })
+        .request();
 ```
 ### Explanation
 `with(this)`
