@@ -113,10 +113,7 @@ public class ChainPermission {
         if (mPermissionRequest == null) {
             throw new RuntimeException("No requested permission.");
         } else {
-            // TODO: 2/28/22 以时间戳为code应该准确一些
-            int requestCode = Arrays.hashCode(mPermissionRequest) & 0xffff;
-            mFragmentWeakReference.get().addPermissionCallback(requestCode, callback);
-            mFragmentWeakReference.get().requestPermissions(requestCode, mPermissionRequest);
+            mFragmentWeakReference.get().requestPermissions(callback, mPermissionRequest);
         }
     }
 }

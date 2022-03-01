@@ -43,7 +43,7 @@ public class LightPermission {
         return new ChainPermission(fragment.getChildFragmentManager());
     }
 
-    public static boolean hasPermission(@NonNull Context context, @NonNull String... permissions) {
+    public static boolean hasPermission(@NonNull Context context, @NonNull String[] permissions) {
         for (String permission : permissions) {
             if (!hasPermission(context, permission)) {
                 return false;
