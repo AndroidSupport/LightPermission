@@ -42,7 +42,7 @@ LightPermission
 
         });
 ```
-### Demo for v2.1.1-snapshot
+### Demo for v2.1.2-snapshot
 ```
 LightPermission
         .with(this)
