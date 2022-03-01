@@ -13,7 +13,7 @@ allprojects {
     }
 }
 
-implementation 'com.uniquext.android:permission:2.1.1-SNAPSHOT'
+implementation 'com.uniquext.android:permission:2.1.2-SNAPSHOT'
 ```
 
 # Instructions

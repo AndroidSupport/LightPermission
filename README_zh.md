@@ -15,7 +15,7 @@ allprojects {
 ```
 **2.在模块`build.gradle`中添加依赖**
 ```
-implementation 'com.uniquext.android:permission:2.1.1-SNAPSHOT'
+implementation 'com.uniquext.android:permission:2.1.2-SNAPSHOT'
 ```
 
 # 使用方法
