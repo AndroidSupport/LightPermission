@@ -71,7 +71,7 @@ The permission which to be requested, at least one in number.
 permission callback
 * `onGranted` Called when all requested permissions are granted.
 * `onDenied` Called when there is a denied permission, the parameter `permissions` is the denied permission set.
-* `onLongerAsk` Called when there is a denied permissions and those were set to no longer ask, the parameter `permissions` is the set of permissions that were set to no longer ask.
+* `onProhibited` Called when there is a denied permissions and those were set to no longer ask, the parameter `permissions` is the set of permissions that were set to no longer ask.
 
 # History
 [View historical version](https://github.com/AndroidSupport/LightPermission/releases)
