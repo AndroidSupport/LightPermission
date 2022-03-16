@@ -38,7 +38,7 @@ import java.util.Random;
  * @version 1.0
  * @date 2019/3/29  11:27
  */
-class PermissionFragment extends Fragment {
+public class PermissionFragment extends Fragment {
 
     private SparseArray<CustomPermissionCallback> permissionCallback = new SparseArray<>();
 
