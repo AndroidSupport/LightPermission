@@ -1,5 +1,7 @@
 package com.uniquext.android.lightpermission.request;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
 import androidx.fragment.app.FragmentManager;
@@ -9,7 +11,8 @@ import com.uniquext.android.lightpermission.callback.GrantCallback;
 import com.uniquext.android.lightpermission.callback.ProhibitCallback;
 
 import java.lang.ref.WeakReference;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -49,7 +52,7 @@ public class ChainPermission {
     }
 
     public ChainPermission permissions(@NonNull @Size(min = 1) String... permissions) {
-        this.mPermissionRequest = permissions;
+        this.mPermissionRequest = filterPermission(permissions);
         return this;
     }
 
@@ -112,8 +115,20 @@ public class ChainPermission {
     private void result(@NonNull CustomPermissionCallback callback) {
         if (mPermissionRequest == null) {
             throw new RuntimeException("No requested permission.");
+        } else if (mPermissionRequest.length == 0) {
+            callback.onGranted();
         } else {
             mFragmentWeakReference.get().requestPermissions(callback, mPermissionRequest);
         }
+    }
+
+    private String[] filterPermission(String... tempPermissions) {
+        List<String> permissions = new ArrayList<>();
+        for (String permission : tempPermissions) {
+            if (!TextUtils.isEmpty(permission)) {
+                permissions.add(permission);
+            }
+        }
+        return permissions.toArray(new String[0]);
     }
 }
