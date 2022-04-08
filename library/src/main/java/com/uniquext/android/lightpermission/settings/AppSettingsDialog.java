@@ -34,9 +34,14 @@ public class AppSettingsDialog {
                 .create();
     }
 
-    private static void startSettings(Context context) {
+    public static void startSettings(Context context) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.fromParts("package", context.getPackageName(), null));
+        context.startActivity(intent);
+    }
+
+    public void startLocationService(Context context) {
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         context.startActivity(intent);
     }
 
