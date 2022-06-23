@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.uniquext.android.lightpermission.request.ChainPermission;
 
+import java.util.List;
+
 /**
  * 　 　　   へ　　　 　／|
  * 　　    /＼7　　　 ∠＿/
@@ -44,6 +46,15 @@ public class LightPermission {
     }
 
     public static boolean hasPermission(@NonNull Context context, @NonNull String[] permissions) {
+        for (String permission : permissions) {
+            if (!hasPermission(context, permission)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean hasPermission(@NonNull Context context, @NonNull List<String> permissions) {
         for (String permission : permissions) {
             if (!hasPermission(context, permission)) {
                 return false;
