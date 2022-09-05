@@ -1,14 +1,6 @@
 apply plugin: 'com.android.library'
 apply from: 'maven_push.gradle'
 
-static def getProductName() {
-    return "light_permission"
-}
-
-static def releaseTime() {
-    return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("GMT+08:00"))
-}
-
 android {
     compileSdkVersion 28
 
@@ -27,18 +19,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        libraryVariants.all { variant ->
-            variant.outputs.all {
-                outputFileName = "${getProductName()}_v${defaultConfig.versionName}_${releaseTime()}.aar"
-            }
-        }
     }
     compileOptions {
-        sourceCompatibility = "1.8"
-        targetCompatibility = "1.8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    compileOnly 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
 }
