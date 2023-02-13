@@ -12,6 +12,7 @@ import com.uniquext.android.lightpermission.callback.ProhibitCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -52,6 +53,11 @@ public class ChainPermission {
     }
 
     public ChainPermission permissions(@NonNull @Size(min = 1) String... permissions) {
+        this.mPermissionRequest = filterPermission(Arrays.asList(permissions));
+        return this;
+    }
+
+    public ChainPermission permissions(@NonNull @Size(min = 1) List<String> permissions) {
         this.mPermissionRequest = filterPermission(permissions);
         return this;
     }
@@ -122,7 +128,7 @@ public class ChainPermission {
         }
     }
 
-    private String[] filterPermission(String... tempPermissions) {
+    private String[] filterPermission(List<String> tempPermissions) {
         List<String> permissions = new ArrayList<>();
         for (String permission : tempPermissions) {
             if (!TextUtils.isEmpty(permission)) {
