@@ -3,8 +3,14 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LightPermission.iml" filepath="$PROJECT_DIR$/LightPermission.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LightPermission.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LightPermission.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LightPermission.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LightPermission.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LightPermission.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LightPermission.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LightPermission.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LightPermission.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/LightPermission.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/LightPermission.library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/LightPermission.library.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/LightPermission.library.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/LightPermission.library.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/LightPermission.library.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/LightPermission.library.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/LightPermission.library.unitTest.iml" />
     </modules>
   </component>
 </project>
